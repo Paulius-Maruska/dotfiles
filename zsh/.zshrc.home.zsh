@@ -10,7 +10,7 @@ fi
 
 # all of our zsh files
 typeset -U files
-files=($DOTFILES/**/*.zsh $DOTFILES/**/*.zsh)
+files=($DOTFILES/**/*.zsh(D))
 
 # filter out all the special files
 files=(${files:#*.home.zsh})

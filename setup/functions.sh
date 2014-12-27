@@ -219,8 +219,11 @@ remove_link () {
 install_files () {
     local group_name=$1 dst_dir=$2 file_mask=$3 name_suffix=$4
 
-    local files=$(find "$DOTFILES_ROOT" -maxdepth 2 -name "$file_mask")
+    local found=false
+    local files=$(find "$DOTFILES_ROOT" -maxdepth 2 -name "${file_mask}.zsh")
     if [ -n "$files" ]; then
+
+        found=true
 
         info "installing \033[00;34m$group_name\033[0m\n"
 
@@ -229,11 +232,31 @@ install_files () {
         fi
 
         for src in $files; do
-            dst="$dst_dir/$(basename "${src%$name_suffix}")"
+            dst="$dst_dir/$(basename "${src%${name_suffix}.*}")"
             create_link "$src" "$dst"
         done
 
-    else
+    fi
+
+    local files=$(find "$DOTFILES_ROOT" -maxdepth 2 -name "$file_mask")
+    if [ -n "$files" ]; then
+
+        found=true
+
+        info "installing \033[00;34m$group_name\033[0m\n"
+
+        if [ "$dst_dir" != "$HOME" ]; then
+            create_directory "$dst_dir"
+        fi
+
+        for src in $files; do
+            dst="$dst_dir/$(basename "${src%${name_suffix}}")"
+            create_link "$src" "$dst"
+        done
+
+    fi
+
+    if [ "$found" = "false" ]; then
         info "nothing to install for \033[00;34m$group_name\033[0m\n"
     fi
 }
@@ -281,11 +304,11 @@ install_dotfiles () {
 
     install_packages
 
-    install_files "Configurations" "$HOME" "*.home.zsh" ".*.*"
+    install_files "Configurations" "$HOME" "*.home" ".*"
 
-    install_files "Functions" "$HOME/functions" "*.funcs.zsh" ".*.*"
+    install_files "Functions" "$HOME/functions" "*.funcs" ".*"
 
-    install_files "Tools" "$HOME/bin" "*.tool.zsh" ".*.*"
+    install_files "Tools" "$HOME/bin" "*.tool" ".*"
 }
 
 uninstall_dotfiles () {

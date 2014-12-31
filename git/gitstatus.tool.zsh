@@ -1,4 +1,7 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
+
+# inspired by (but not really an exact port of) bash-git-prompt gitstatus.sh
+# https://github.com/magicmonty/bash-git-prompt/blob/master/gitprompt.sh
 
 _gitstatus () {
     # get current symref or error
@@ -13,18 +16,22 @@ _gitstatus () {
         return 1
     fi
 
-    local local_name= remote_name= git_ref=
+    local local_name= remote_name=
+    typeset -i rev_ahead rev_behind
+
     # if "fatal: ref HEAD is not a symbolic ref"
     local no_sym="fatal: ref HEAD is not a symbolic ref"
     if [ "${gitsym}" != "${no_sym}" ]; then
-        git_ref="$gitsym"
-
         # the current branch is the tail end of the symbolic reference
         local_name="${gitsym##refs/heads/}"
 
         local remote="$(git for-each-ref --format='%(upstream:short)' $gitsym)"
         if [ -n "$remote" ]; then
             remote_name="$remote"
+
+            local rev="$(git rev-list --left-right $remote_name...HEAD)"
+            rev_ahead="$(echo "$rev" | egrep -c '^>')"
+            rev_behind="$(echo "$rev" | egrep -c '^<')"
         fi
     else
         local gittag="$(git describe --exact-match 2>&1)"
@@ -54,13 +61,6 @@ _gitstatus () {
 
     typeset -i stashes
     stashes="$(git stash list | wc -l)"
-
-    typeset -i rev_ahead rev_behind
-    if [ "$remote_name" != "." ]; then
-        local rev="$(git rev-list --left-right $remote_name...HEAD)"
-        rev_ahead="$(echo "$rev" | egrep -c '^>')"
-        rev_behind="$(echo "$rev" | egrep -c '^<')"
-    fi
 
     # output space separated list of values
     echo "$local_name"

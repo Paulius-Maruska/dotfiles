@@ -24,3 +24,15 @@ printf "\nColor Usage\n"
 printf "  \\\\033[<color code>m - to set active foreground color to the specified color code\n"
 printf "  \\\\033[0m - reset active foreground color to the default\n"
 printf "When color codes are specified inside a string, and you want to use printf to output\nthe string - do not forget to use %%b format specifier instead of %%s.\n"
+
+autoload colors && colors
+
+echo -
+
+printf "ZSH colors\n"
+for name in ${(k)fg}; do
+    printf "  ${fg[$name]}fg[$name]${reset_color}\n"
+done
+for name in ${(k)fg_bold}; do
+    printf "  ${fg_bold[$name]}fg_bold[$name]${reset_color}\n"
+done

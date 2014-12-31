@@ -7,11 +7,29 @@ export DOTFILES=$HOME/.dotfiles
 # your project folder that we can `c [tab]` to
 export PROJECTS=$HOME/Projects
 
+# move $(brew --prefix)/bin to the front of $path (so newer brew installed apps are
+# found first, before the old stuff that apple distributes by default)
+if [ "$(uname)" = "Darwin" ]; then
+    brew_prefix="$(brew --prefix)"
+    brew_bin="${brew_prefix}/bin"
+    brew_bin_index=${path[(i)${brew_bin}]}
+
+    # remove brew_bin if it was found
+    if [ "$brew_bin_index" -le "${#path}" ]; then
+        path[$brew_bin_index]=()
+    fi
+
+    path=("$brew_bin" "${path[@]}")
+fi
+
 # add ~/bin to PATH (if one exists)
 if [ -d "$HOME/bin" ]; then
-    # check if ~/bin is already in path (this happens when reloading)
-    if [ "${PATH#*$HOME/bin}" = "$PATH" ]; then
-        export PATH=$PATH:$HOME/bin
+    home_bin="$HOME/bin"
+    home_bin_index=${path[(i)${home_bin}]}
+
+    # if home_bin isn't already in path, add it (to the front)
+    if [ "$home_bin_index" -gt "${#path}" ]; then
+        path=("$home_bin" "${path[@]}")
     fi
 fi
 

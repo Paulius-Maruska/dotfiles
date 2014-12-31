@@ -1,7 +1,5 @@
 autoload colors && colors
 
-# this is my way of implementing prompt "themes"
-
 output_prompt_value () {
     local val=$1
     local prefix="${fg_bold[white]}[${reset_color}"
@@ -39,7 +37,7 @@ current_user_and_hostname () {
 }
 
 zsh_precmd () {
-    local line="$(current_os_version)$(current_timestamp)$(current_user_and_hostname)$(current_directory)"
+    local line="$(current_timestamp)$(current_os_version)$(current_user_and_hostname)$(current_directory)"
     echo $line
     title
 }

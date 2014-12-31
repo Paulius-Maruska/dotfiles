@@ -295,6 +295,21 @@ install_packages () {
     # todo: add other platforms
 }
 
+execute_other_files () {
+    local filemask="$1"
+    info "executing \033[00;34mSub group \"$filemask\" files\033[0m\n"
+
+    local other_files=$(find "$DOTFILES_ROOT" -maxdepth 2 -name "$filemask" -not -regex '.*/setup/.*')
+    for file in $other_files; do
+        $file
+        if [ $? != 0 ]; then
+            warning "file \"$file\" failed"
+        else
+            success "file \"$file\" executed"
+        fi
+    done
+}
+
 install_dotfiles () {
     info "installing \033[00;34mDotfiles\033[0m\n"
 
@@ -309,6 +324,8 @@ install_dotfiles () {
     install_files "Functions" "$HOME/functions" "*.funcs" ".*"
 
     install_files "Tools" "$HOME/bin" "*.tool" ".*"
+
+    execute_other_files "setup.sh"
 }
 
 uninstall_dotfiles () {

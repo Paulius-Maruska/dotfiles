@@ -1,0 +1,4 @@
+# Entry point for BASH
+export DOTFILES=$HOME/.dotfiles
+export DOTFILESSHELL=bash
+source $DOTFILES/loader.sh

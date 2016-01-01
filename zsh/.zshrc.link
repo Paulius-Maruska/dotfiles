@@ -1,0 +1,4 @@
+# Entry point for ZSH
+export DOTFILES=$HOME/.dotfiles
+export DOTFILESSHELL=zsh
+source $DOTFILES/loader.sh

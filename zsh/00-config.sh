@@ -1,12 +1,19 @@
-export LSCOLORS="exfxcxdxbxegedabagacad"
-export CLICOLOR=true
-
-if [[ -d ~/functions ]]; then
+if [[ -d $HOME/functions ]]; then
     fpath+=$HOME/functions
     autoload -U $HOME/functions/*(:t)
 fi
+# OS X configuration
+if [ "$DOTFILESPLATFORM" = "Darwin" ]; then
+    # set HOMEBREW_PREFIX path (default is /usr/local)
+    export HOMEBREW_PREFIX="$(brew --prefix)"
 
-HISTFILE=~/.zsh_history
+    # if we have "zsh-completions" formulae installed - update fpath
+    if [ -d "$HOMEBREW_PREFIX/share/zsh-completions" ]; then
+        fpath+="$HOMEBREW_PREFIX/share/zsh-completions"
+    fi
+fi
+
+HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -31,6 +38,16 @@ setopt SHARE_HISTORY # share history between sessions ???
 # don't expand aliases _before_ completion has finished
 #   like: git comm-[tab]
 setopt complete_aliases
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
 
 zle -N newtab
 

@@ -1,4 +1,5 @@
 # Entry point for ZSH
+export PATH=$PATH:/usr/local/bin
 export DOTFILES=$HOME/.dotfiles
 export DOTFILESSHELL=zsh
-source $DOTFILES/loader.sh
+source $DOTFILES/setup/loader.sh

@@ -5,9 +5,9 @@ source $DOTFILES/setup/_lib/load.sh
 
 for filename in $(loader_list_files_in_correct_order); do
     if [ -f "$filename" ]; then
-        debug "$(basename "$DOTFILES")/${filename#$DOTFILES/} - loading"
+        _debug "$(basename "$DOTFILES")/${filename#$DOTFILES/} - loading"
         source $filename
-        info "$(basename "$DOTFILES")/${filename#$DOTFILES/} - loaded"
+        _info "$(basename "$DOTFILES")/${filename#$DOTFILES/} - loaded"
     fi
 done
 

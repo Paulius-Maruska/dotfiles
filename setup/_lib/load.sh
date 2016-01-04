@@ -1,4 +1,4 @@
-log(){
+_dotfiles_log(){
     if [ "$DOTFILESDEBUG" -eq 1 ]; then
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
         local level=$1
@@ -18,10 +18,10 @@ log(){
     fi
 }
 
-alias debug='log debug'
-alias info='log info'
-alias warn='log warn'
-alias error='log error'
+alias _debug='_dotfiles_log debug'
+alias _info='_dotfiles_log info'
+alias _warn='_dotfiles_log warn'
+alias _error='_dotfiles_log error'
 
 loader_list_files_in_correct_order(){
     # Files from env first (these are supposed to setup env variables)

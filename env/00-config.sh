@@ -1,13 +1,13 @@
 export DOTFILESPLATFORM="$(uname -s)"
-info "platform is $DOTFILESPLATFORM"
+_info "platform is $DOTFILESPLATFORM"
 
 if [ "$DOTFILESPLATFORM" = "Darwin" ]; then
     # set HOMEBREW_PREFIX path (default is /usr/local)
     export HOMEBREW_PREFIX="$(brew --prefix)"
-    info "prefix for Homebrew is $HOMEBREW_PREFIX"
+    _info "prefix for Homebrew is $HOMEBREW_PREFIX"
 
     COREUTILS_PREFIX="$(brew --prefix coreutils)"
-    info "prefix for coreutils is $COREUTILS_PREFIX"
+    _info "prefix for coreutils is $COREUTILS_PREFIX"
 
     if [ -n "$COREUTILS_PREFIX" ]; then
         # if coreutils are installed, add them to start of $PATH and $MANPATH
@@ -23,13 +23,13 @@ fi
 if [ -d "$HOME/bin" ]; then
     # move home_bin if it was found
     export PATH="$HOME/bin:$(printf '%s\n' "$PATH"|sed -e "s@$HOME/bin:@@g;s/::/:/g")"
-    info "found ~/bin directory and added it to \$PATH"
+    _info "found ~/bin directory and added it to \$PATH"
 fi
 
 if [ -t 1 -a "$(tput colors)" -ge 8 ]; then
     export COLORSUPPORT=1
-    info "colors are supported"
+    _info "colors are supported"
 else
     export COLORSUPPORT=0
-    info "colors are NOT supported"
+    _info "colors are NOT supported"
 fi

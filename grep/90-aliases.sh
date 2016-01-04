@@ -1,8 +1,12 @@
 if [ "$COLORSUPPORT" -eq 1 ]; then
-    for grpcmd in grep egrep fgrep zgrep zegrep zfgrep bzgrep bzegrep bzfgrep; do
-        if [ -n "$(command -v $grpcmd)" ]; then
-            eval "alias $grpcmd=\"$grpcmd --color=auto\""
-            info "colors enabled for $grpcmd"
-        fi
+    for grpp in _ z bz; do
+        for grpt in grep egrep fgrep rgrep; do
+            _grpcmd="$grpp$grpt"
+            _grpcmd="${_grpcmd#_}"
+            if [ -n "$(command -v $_grpcmd)" ]; then
+                eval "alias $_grpcmd='$_grpcmd --color=auto'"
+                _info "colors enabled for $_grpcmd"
+            fi
+        done
     done
 fi

@@ -1,14 +1,15 @@
 # loader.sh should be source from either .zshrc or .bashrc
 DOTFILESDEBUG=1
 
-source $DOTFILES/setup/_lib/load.sh
+source $DOTFILES/_dotfiles/lib.sh
+_info "loading shell configuration for $DOTFILESSHELL"
 
-for filename in $(loader_list_files_in_correct_order); do
+for filename in $(list_files_to_source); do
     if [ -f "$filename" ]; then
-        _debug "$(basename "$DOTFILES")/${filename#$DOTFILES/} - loading"
+        _info "sourcing file '$(basename "$DOTFILES")/${filename#$DOTFILES/}'"
         source $filename
-        _info "$(basename "$DOTFILES")/${filename#$DOTFILES/} - loaded"
+        _debug "file '$(basename "$DOTFILES")/${filename#$DOTFILES/}' sourced"
     fi
 done
 
-source $DOTFILES/setup/_lib/unload.sh
+source $DOTFILES/_dotfiles/unlib.sh

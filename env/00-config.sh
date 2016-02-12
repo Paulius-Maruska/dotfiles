@@ -33,3 +33,6 @@ else
     export COLORSUPPORT=0
     _info "colors are NOT supported"
 fi
+
+export EDITOR=vim
+_info "EDITOR is set to vim"

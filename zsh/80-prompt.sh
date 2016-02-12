@@ -1,7 +1,7 @@
 __dotfiles_prompt() {
     __dotfiles_git_ps1
     if [ "$COLORSUPPORT" -eq 1 ]; then
-        PS1='%{%f%}[%(?..%? )%{%F{5}%}$DOTFILESSHELL%{%f%} %{%B%F{3}%}%*%{%f%b%}${debian_chroot:+( / $debian_chroot) } : %{%B%F{2%}%n%{%f%b%} @ %{%B%F{4}%}%m%{%f%b%} : %{%B%F{3}%}%~%{%f%b%}'
+        PS1='%{%f%}[%(?..%? )%{%F{5}%}$DOTFILESSHELL%{%f%} %{%F{6}%}%*%{%f%}${debian_chroot:+( / $debian_chroot) } : %{%B%F{2%}%n%{%f%b%} @ %{%B%F{4}%}%m%{%f%b%} : %{%B%F{3}%}%~%{%f%b%}'
     else
         PS1='[%(?..%? )$DOTFILESSHELL %*${debian_chroot:+( / $debian_chroot) } : %n @ %m : %~'
     fi

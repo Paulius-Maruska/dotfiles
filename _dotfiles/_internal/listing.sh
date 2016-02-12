@@ -26,8 +26,52 @@ __list_files_to_source_internal(){
     echo ".localrc:$HOME/.localrc"
 }
 
+__list_files_to_link_internal(){
+    local target_dir="$1"
+    local filter=
+    local output="-printf '%f:%p\n'"
+
+    # Configurations to be linked in $HOME
+    filter="-name '*.link'"
+    eval "find -H $DOTFILES $filter $output"
+
+    # Configurations to be linked in $HOME/bin
+    filter="-perm -g=x"
+    filter="$filter -type f"
+    filter="$filter -not -path '*.git*'"
+    filter="$filter -not -path '*_dotfiles*'"
+    filter="$filter -not -path '*setup*'"
+    filter="$filter -name '*.script'"
+    eval "find -H $DOTFILES $filter $output"
+}
+
 list_files_to_source(){
-    for fn in $(__list_files_to_source_internal); do
-        echo "${fn##*:}"  # strip <filename>: from the start of the every line
+    for line in $(__list_files_to_source_internal); do
+        echo "${line##*:}"  # strip <filename>: from the start of the every line
+    done
+}
+
+list_files_to_link(){
+    local target_dir="$1"
+    local filter=
+    local output="-printf '%f:%p\n'"
+
+    # Configurations to be linked in $HOME
+    filter="-name '*.link'"
+    for line in $(__list_files_to_link_internal); do
+        fn="${line%%:*}"
+        fp="${line##*:}"
+
+        case "$fn" in
+            *.link)
+                lt="$target_dir/$bn" ;;
+            *.script)
+                lt="$target_dir/bin/$bn" ;;
+            *)
+                lt="" ;;
+        esac
+        if [ -n "$lt" ]; then
+            echo "$lt:$fp"
+        fi
     done
 }

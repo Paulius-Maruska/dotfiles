@@ -1,31 +1,33 @@
+LOGGING_ENABLED=1
 LOGGING_COLORS=1
 
 _dotfiles_log_msg(){
+    typeset shellname="$DOTFILESSHELL"
     typeset timestamp="$(date '+%H:%M:%S')"
     typeset level="$1"
     typeset message="$2"
-    typeset cr="\033[0m"
-    typeset csh="\033[0;35m"
-    typeset csym="\033[37m"
-    typeset cts="\033[36m"
-    typeset clvl="\033[0;35m"  # default/unknown level
-    typeset cmsg="$cr"
-    typeset fmt="%4s %s - %5s - %s\n"
+    typeset sep="-"
+
+    typeset fmt="%4b %b %b %5b %b %s\n"
     if [ "$LOGGING_COLORS" -eq 1 ]; then
+        shellname="\033[0;35m$shellname\033[0m"
+        timestamp="\033[36m$timestamp\033[0m"
         if [ "$level" = "debug" ]; then
-            clvl="\033[1;32m"
+            level="\033[1;32m$level\033[0m"
         elif [ "$level" = "info" ]; then
-            clvl="\033[0;34m"
+            level="\033[0;34m$level\033[0m"
         elif [ "$level" = "warn" ]; then
-            clvl="\033[0;33m"
+            level="\033[0;33m$level\033[0m"
         elif [ "$level" = "error" ]; then
-            clvl="\033[0;31m"
+            level="\033[0;31m$level\033[0m"
         else
-            clvl="\033[0;35m"
+            level="\033[0;35m$level\033[0m"
         fi
-        fmt="$csh%4s$cr $cts%s$cr $csym-$cr $clvl%5s$cr $csym-$cr $cmsg%s$cr\n"
+        sep="\033[37m$sep\033[0m"
     fi
-    printf "$fmt" "$DOTFILESSHELL" "$timestamp" "$level" "$message"
+    if [ "$LOGGING_ENABLED" -eq 1 ]; then
+        printf "$fmt" "$shellname" "$timestamp" "$sep" "$level" "$sep" "$message"
+    fi
 }
 
 alias _debug='_dotfiles_log_msg debug'

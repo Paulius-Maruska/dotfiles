@@ -48,6 +48,11 @@ zstyle ':completion:*' insert-tab pending
 autoload -U compinit
 compinit
 
+# for some things, we only have bash completion scripts - load
+# bash completion compatibility stuff.
+autoload -U bashcompinit
+bashcompinit
+
 zle -N newtab
 
 bindkey '^[^[[D' backward-word

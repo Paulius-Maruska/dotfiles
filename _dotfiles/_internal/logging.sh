@@ -30,7 +30,15 @@ _dotfiles_log_msg(){
     fi
 }
 
-alias _debug='_dotfiles_log_msg debug'
-alias _info='_dotfiles_log_msg info'
-alias _warn='_dotfiles_log_msg warn'
-alias _error='_dotfiles_log_msg error'
+_debug() {
+    _dotfiles_log_msg debug "$*"
+}
+_info() {
+    _dotfiles_log_msg info "$*"
+}
+_warn() {
+    _dotfiles_log_msg warn "$*"
+}
+_error() {
+    _dotfiles_log_msg error "$*"
+}

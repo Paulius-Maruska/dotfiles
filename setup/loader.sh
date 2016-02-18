@@ -10,5 +10,3 @@ for filename in $(list_files_to_source); do
     fi
 done
 _debug "shell configuration for $DOTFILESSHELL is loaded"
-
-source $DOTFILES/_dotfiles/unlib.sh

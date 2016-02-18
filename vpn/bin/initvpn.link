@@ -1,0 +1,28 @@
+#!/bin/sh
+
+_usage() {
+  echo 'Usage: initvpn <ovpn>[ <ovpn>...]'
+}
+
+if [ -z "$1" ]; then
+    _usage
+    exit 1
+fi
+
+while [ -n "$1" ]; do
+    ovpnname=$1
+    shift
+
+    if [ -f "$HOME/.ovpn/$ovpnname.ovpn" ]; then
+        ovpnname="$HOME/.ovpn/$ovpnname.ovpn"
+    elif [ -f "$HOME/.ovpn/$ovpnname" ]; then
+        ovpnname="$HOME/.ovpn/$ovpnname"
+    fi
+
+    if [ ! -f "$ovpnname" ]; then
+        echo "Error: could not find '$ovpnname' file." 1>&2
+        exit 1
+    fi
+
+    echo "sudo openvpn --config '$ovpnname' --daemon" | sh
+done

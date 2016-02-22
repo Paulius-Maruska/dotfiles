@@ -26,6 +26,12 @@ if [ -d "$HOME/bin" ]; then
     _info "found ~/bin directory and added it to \$PATH"
 fi
 
+if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
+    # Gnome terminal reports itself as "xterm" although it supports
+    # all 256 colors and more.
+    export TERM="xterm-256color"
+fi
+
 if [ -t 1 -a "$(tput colors)" -ge 8 ]; then
     export COLORSUPPORT=1
     _info "colors are supported"

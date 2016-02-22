@@ -8,9 +8,9 @@ __dotfiles_prompt() {
 
     __dotfiles_git_ps1  # sets $GITPS1 variable
     if [ "$COLORSUPPORT" -eq 1 ]; then
-        PS1='\[\033[0m\]['
+        PS1='\[\e[0m\]['
         PS1+="$last_cmd_status"
-        PS1+='\[\033[35m\]$DOTFILESSHELL\[\033[0m\] \[\033[36m\]\t\[\033[0m\]${debian_chroot:+( / $debian_chroot) } : \[\033[1;32m\]\u\[\033[0m\] @ \[\033[1;34m\]\h\[\033[0m\] : \[\033[1;33m\]\w\[\033[0m\]'
+        PS1+='\[\e[35m\]$DOTFILESSHELL\[\e[0m\] \[\e[36m\]\t\[\e[0m\]${debian_chroot:+( / $debian_chroot) } : \[\e[1;32m\]\u\[\e[0m\] @ \[\e[1;34m\]\h\[\e[0m\] : \[\e[1;33m\]\w\[\e[0m\]'
     else
         PS1='['
         PS1+="$last_cmd_status"
@@ -22,7 +22,12 @@ __dotfiles_prompt() {
     # If this is an xterm set the title to user@host:dir
     case "$TERM" in
     xterm*|rxvt*)
-        PS1="\[\033]0;${debian_chroot:+($debian_chroot)}$DOTFILESSHELL / \u@\h : \w\a\]$PS1"
+        TERMTITLE='\[\e]0;${debian_chroot:+($debian_chroot)}$DOTFILESSHELL / \u@\h : \w\a\]'
+        PS1="${TERMTITLE}${PS1}"
+        ;;
+    screen)
+        PANETITLE='\[\e]0;${debian_chroot:+($debian_chroot)}$DOTFILESSHELL: \w\a\]'
+        PS1="${PANETITLE}${PS1}"
         ;;
     esac
 

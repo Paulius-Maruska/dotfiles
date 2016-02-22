@@ -11,7 +11,12 @@ __dotfiles_prompt() {
     # If this is an xterm set the title to user@host:dir
     case "$TERM" in
     xterm*|rxvt*)
-        print -Pn "\e]0;${debian_chroot:+($debian_chroot)}$DOTFILESSHELL / %n@%m: %~\a"
+        TERMTITLE='\e]0;${debian_chroot:+($debian_chroot)}$DOTFILESSHELL / %n@%m: %~\a'
+        print -Pn "$TERMTITLE"
+        ;;
+    screen)
+        PANETITLE='\e]0;${debian_chroot:+($debian_chroot)}$DOTFILESSHELL: %~\a'
+        print -Pn "$PANETITLE"
         ;;
     esac
 }

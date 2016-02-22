@@ -1,0 +1,19 @@
+# global shell and terminal settings
+set-option -g default-shell /usr/bin/zsh
+set-option -g default-terminal "screen-256color"
+set-option -g set-titles on
+
+# configure status bar
+set-option -g status on
+set-option -g status-utf8 on
+set-option -g status-interval 1
+set-option -g status-position bottom
+set-option -g status-justify centre
+set-option -g status-bg colour235
+set-option -g status-fg colour015
+
+# configure status-left
+set-option -g status-left "#[fg=colour208]#12S #[fg=white]| #[fg=colour219]#12W #[fg=white]| #[fg=colour226]#32T#[default]"
+set-option -g status-left-length 62
+set-option -g status-right "#[fg=colour226]#32h #[fg=white]| #[fg=colour219]%F #[fg=white]| #[fg=colour208]%T#[default]"
+set-option -g status-right-length 56

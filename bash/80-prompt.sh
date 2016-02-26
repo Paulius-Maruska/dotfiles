@@ -6,6 +6,7 @@ __dotfiles_prompt() {
         last_cmd_status="$last_exit_code "
     fi
 
+    __dotfiles_pyvenv_ps1  # sets $PYVENVPS1 variable
     __dotfiles_git_ps1  # sets $GITPS1 variable
     if [ "$COLORSUPPORT" -eq 1 ]; then
         PS1='\[\e[0m\]['
@@ -16,6 +17,7 @@ __dotfiles_prompt() {
         PS1+="$last_cmd_status"
         PS1+='$DOTFILESSHELL \t${debian_chroot:+( / $debian_chroot) } : \u @ \h : \w'
     fi
+    PS1+="$(eval 'printf -- "%s" "$PYVENVPS1"')"
     PS1+="$(eval 'printf -- "%s" "$GITPS1"')"
     PS1+=']\n\$ '
 

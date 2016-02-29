@@ -1,3 +1,54 @@
+pr() {
+    if [ -z "$1" ]; then
+        echo 'Usage: pr <project name>'
+        if [ -z "$PROJECTS" ]; then
+            echo '$PROJECTS environment variable must be defined.'
+        else
+            echo "\$PROJECTS is set to '$PROJECTS'."
+        fi
+        return 1
+    fi
+
+    if [ -z "$PROJECTS" ]; then
+        echo 'Error: $PROJECTS is not defined.'
+        return 2
+    fi
+
+    if [ "$1" = "." ]; then
+        cd "$DOTFILES"
+        return 0
+    elif [ -d "$PROJECTS/$1" ]; then
+        cd "$PROJECTS/$1"
+        return 0
+    else
+        echo "Error: project not found '$1'."
+        return 3
+    fi
+}
+
+__pr() {
+    local ncur=$COMP_CWORD
+    local cur=${COMP_WORDS[1]}
+    if [ $ncur -eq 1 ]; then
+        if [ -n "$PROJECTS" ]; then
+            COMPREPLY=()
+            if [ -z "$cur" ]; then
+                COMPREPLY+=(".")
+            fi
+            for fn in $(basename -a $PROJECTS/$cur*); do
+                if [ -d "$PROJECTS/$fn" ]; then
+                    COMPREPLY+=("$fn")
+                fi
+            done
+        fi
+    fi
+    return 0
+}
+
+# autocompletion for bash
+complete -F __pr pr
+
+
 __colors8() {
   local bold=
   local x

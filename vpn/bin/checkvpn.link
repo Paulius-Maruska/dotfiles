@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _usage() {
-  echo 'Usage: checkvpn <ovpn>[ <ovpn>...]'
+    echo 'Usage: checkvpn <ovpn>[ <ovpn>...]'
 }
 
 if [ -z "$1" ]; then

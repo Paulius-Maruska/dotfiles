@@ -5,7 +5,6 @@ if [ "$COLORSUPPORT" -eq 1 ]; then
             _grpcmd="${_grpcmd#_}"
             if [ -n "$(command -v $_grpcmd)" ]; then
                 eval "alias $_grpcmd='$_grpcmd --color=auto'"
-                _info "colors enabled for $_grpcmd"
             fi
         done
     done

@@ -13,12 +13,12 @@ __list_files_to_source_internal(){
 
     # Everything else
     filter="-mindepth 2 "
-    filter+="-not -path '*.git*' "
-    filter+="-not -path '*_dotfiles*' "
-    filter+="-not -path '*setup*' "
-    filter+="-not -path '*env*' "
-    filter+="-not -path '*zsh*' "
-    filter+="-not -path '*bash*' "
+    filter+="-not -path '*/.git/*' "
+    filter+="-not -path '*/_dotfiles/*' "
+    filter+="-not -path '*/setup/*' "
+    filter+="-not -path '*/env/*' "
+    filter+="-not -path '*/zsh/*' "
+    filter+="-not -path '*/bash/*' "
     filter+="-name '*.sh' "
     evalstr+="find -H $DOTFILES $filter $output;"
 

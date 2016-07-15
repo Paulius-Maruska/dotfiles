@@ -1,14 +1,7 @@
 export DOTFILESPLATFORM="$(uname -s)"
 
 if [ "$DOTFILESPLATFORM" = "Darwin" ]; then
-    # set HOMEBREW_PREFIX path (default is /usr/local)
-    export HOMEBREW_PREFIX="$(brew --prefix)"
-
-    # move $(brew --prefix)/bin to the front of $PATH
-    export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-
     COREUTILS_PREFIX="$(brew --prefix coreutils)"
-
     if [ -n "$COREUTILS_PREFIX" ]; then
         # if coreutils are installed, add them to start of $PATH and $MANPATH
         export PATH="$COREUTILS_PREFIX/libexec/gnubin:$(printf '%s\n' "$PATH"|sed -e "s@$COREUTILS_PREFIX/libexec/gnubin:@@g;s/::/:/g")"

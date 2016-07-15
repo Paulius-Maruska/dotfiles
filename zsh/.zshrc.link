@@ -4,7 +4,12 @@ case $- in
       *) return;;
 esac
 
-export PATH=/usr/local/bin:${PATH%%:/usr/local/bin}
+if [ -d /usr/local/bin ]; then
+    export PATH=/usr/local/bin:$PATH
+fi
+if [ -d /usr/local/sbin ]; then
+    export PATH=/usr/local/sbin:$PATH
+fi
 export DOTFILES=$HOME/.dotfiles
 export DOTFILESSHELL=zsh
 export PROJECTS=$HOME/Projects

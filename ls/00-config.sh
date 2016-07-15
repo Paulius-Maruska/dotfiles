@@ -5,5 +5,4 @@ if [ "$COLORSUPPORT" -eq 1 ]; then
     else
         eval "$(dircolors -b)"
     fi
-    _info "loaded \$(dircolors -b)"
 fi

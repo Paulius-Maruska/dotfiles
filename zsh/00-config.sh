@@ -1,14 +1,12 @@
 if [[ -d $HOME/functions ]]; then
     fpath+=$HOME/functions
     autoload -U $HOME/functions/*(:t)
-    _info "found ~/functions directory and added it to \$fpath"
 fi
 # OS X configuration
 if [ "$DOTFILESPLATFORM" = "Darwin" ]; then
     # if we have "zsh-completions" formulae installed - update fpath
     if [ -d "$HOMEBREW_PREFIX/share/zsh-completions" ]; then
         fpath+="$HOMEBREW_PREFIX/share/zsh-completions"
-        _info "found \$HOMEBREW_PREFIX/share/zsh-completions directory and added it to \$fpath"
     fi
 fi
 

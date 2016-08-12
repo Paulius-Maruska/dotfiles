@@ -4,9 +4,15 @@ case $- in
       *) return;;
 esac
 
-export PATH=${PATH%%:/usr/local/bin}:/usr/local/bin
+if [ -d /usr/local/bin ]; then
+    export PATH=/usr/local/bin:$PATH
+fi
+if [ -d /usr/local/sbin ]; then
+    export PATH=/usr/local/sbin:$PATH
+fi
 export DOTFILES=$HOME/.dotfiles
 export DOTFILESSHELL=bash
 export PROJECTS=$HOME/Projects
 export GOLANG_PROJECTS=$PROJECTS/_golang
+source $DOTFILES/env/00-config.sh
 source $DOTFILES/setup/loader.sh

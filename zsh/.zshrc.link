@@ -8,4 +8,5 @@ export PATH=${PATH%%:/usr/local/bin}:/usr/local/bin
 export DOTFILES=$HOME/.dotfiles
 export DOTFILESSHELL=zsh
 export PROJECTS=$HOME/Projects
+export GOLANG_PROJECTS=$PROJECTS/_golang
 source $DOTFILES/setup/loader.sh

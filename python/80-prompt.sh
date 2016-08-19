@@ -18,11 +18,11 @@ __python_venv_ps1() {
             c_blue='\[\e[34m\]'
             c_clear='\[\e[0m\]'
         elif [[ "$DOTFILESSHELL" = "zsh" ]]; then
-            c_red='%F{red}'
-            c_green='%F{green}'
-            c_yellow='%F{yellow}'
-            c_blue='%F{blue}'
-            c_clear='%f'
+            c_red='%{%F{red}%}'
+            c_green='%{%F{green}%}'
+            c_yellow='%{%F{yellow}%}'
+            c_blue='%{%F{blue}%}'
+            c_clear='%{%f%}'
         fi
     fi
 

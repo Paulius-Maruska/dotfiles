@@ -2,13 +2,14 @@ __dotfiles_prompt() {
     __dotfiles_pyvenv_ps1  # sets $PYVENVPS1 variable
     __dotfiles_git_ps1  # sets $GITPS1 variable
     if [ "$COLORSUPPORT" -eq 1 ]; then
-        PS1='%{%f%}[%(?..%? )%{%F{5}%}$DOTFILESSHELL%{%f%} %{%F{6}%}%*%{%f%}${debian_chroot:+( / $debian_chroot) } : %{%B%F{2%}%n%{%f%b%} @ %{%B%F{4}%}%m%{%f%b%} : %{%B%F{3}%}%~%{%f%b%}'
+        PRE_PS1='%{%f%}[%(?..%? )%{%F{5}%}$DOTFILESSHELL%{%f%} %{%F{6}%}%*%{%f%}${debian_chroot:+( / $debian_chroot) } : %{%B%F{2%}%n%{%f%b%} @ %{%B%F{4}%}%m%{%f%b%} : %{%B%F{3}%}%~%{%f%b%}'
     else
-        PS1='[%(?..%? )$DOTFILESSHELL %*${debian_chroot:+( / $debian_chroot) } : %n @ %m : %~'
+        PRE_PS1='[%(?..%? )$DOTFILESSHELL %*${debian_chroot:+( / $debian_chroot) } : %n @ %m : %~'
     fi
-    PS1+="$(eval 'printf -- "%s" "$PYVENVPS1"')"
-    PS1+="$(eval 'printf -- "%s" "$GITPS1"')"
-    PS1+=$']\n\$ '
+    PRE_PS1+="$(eval 'printf -- "%s" "$PYVENVPS1"')"
+    PRE_PS1+="$(eval 'printf -- "%s" "$GITPS1"')"
+    PRE_PS1+=']'
+    PS1='\$ '
 
     # If this is an xterm set the title to user@host:dir
     case "$TERM" in
@@ -21,6 +22,7 @@ __dotfiles_prompt() {
         print -Pn "$PANETITLE"
         ;;
     esac
+    print -P "$PRE_PS1"
 }
 
 precmd() {

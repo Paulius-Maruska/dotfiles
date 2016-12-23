@@ -13,5 +13,6 @@ fi
 export DOTFILES=$HOME/.dotfiles
 export DOTFILESSHELL=zsh
 export PROJECTS=$HOME/Projects
+export GOLANG_PROJECTS=$PROJECTS/_golang
 source $DOTFILES/env/00-config.sh
 source $DOTFILES/setup/loader.sh

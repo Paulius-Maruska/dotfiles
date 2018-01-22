@@ -1,4 +1,6 @@
-LOGGING_ENABLED=1
+if [ -n "${LOGGING_ENABLED+1}" ]; then
+    LOGGING_ENABLED=0
+fi
 LOGGING_COLORS=1
 
 _dotfiles_log_msg(){

@@ -11,7 +11,7 @@ _dotfiles_log_msg(){
     typeset sep="-"
 
     typeset fmt="%4b %b %b %5b %b %s\n"
-    if [ "$LOGGING_COLORS" -eq 1 ]; then
+    if [ "$LOGGING_COLORS" = '1' ]; then
         shellname="\033[0;35m$shellname\033[0m"
         timestamp="\033[36m$timestamp\033[0m"
         if [ "$level" = "debug" ]; then
@@ -27,7 +27,7 @@ _dotfiles_log_msg(){
         fi
         sep="\033[37m$sep\033[0m"
     fi
-    if [ "$LOGGING_ENABLED" -eq 1 ]; then
+    if [ "$LOGGING_ENABLED" = '1' ]; then
         printf "$fmt" "$shellname" "$timestamp" "$sep" "$level" "$sep" "$message"
     fi
 }

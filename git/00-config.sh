@@ -44,6 +44,9 @@ git alias reup     'remote update --prune'
 # outputs current branch
 git alias current  'rev-parse --abbrev-ref HEAD'
 
+# searches in branch names
+git alias branches "! a=\"\$1\" && shift && git rev-parse --abbrev-ref \"--branches=\$a\" \"\$@\"  #"
+
 # start new repository
 git alias start    "! a=\"\$1\" && shift && git init \"\$a\" && cd \"\$a\" && git commit --allow-empty --message 'Initial commit'"
 

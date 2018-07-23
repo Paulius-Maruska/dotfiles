@@ -8,6 +8,10 @@ if [ "$DOTFILESPLATFORM" = "Darwin" ]; then
     if [ -d "$HOMEBREW_PREFIX/share/zsh-completions" ]; then
         fpath+="$HOMEBREW_PREFIX/share/zsh-completions"
     fi
+
+    # MAC has fucked up locale setting by default, fix it here
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
 fi
 
 HISTFILE=$HOME/.zsh_history

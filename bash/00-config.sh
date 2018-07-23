@@ -12,3 +12,10 @@ HISTFILESIZE=10000
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# OS X configuration
+if [ "$DOTFILESPLATFORM" = "Darwin" ]; then
+    # MAC has fucked up locale setting by default, fix it here
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+fi

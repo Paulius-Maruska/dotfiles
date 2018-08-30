@@ -1,6 +1,3 @@
-if [ -n "${LOGGING_ENABLED+1}" ]; then
-    LOGGING_ENABLED=0
-fi
 LOGGING_COLORS=1
 
 _dotfiles_log_msg(){
@@ -27,7 +24,7 @@ _dotfiles_log_msg(){
         fi
         sep="\033[37m$sep\033[0m"
     fi
-    if [ "$LOGGING_ENABLED" = '1' ]; then
+    if [ "$LOGGING_ENABLED" != '0' ]; then
         printf "$fmt" "$shellname" "$timestamp" "$sep" "$level" "$sep" "$message"
     fi
 }

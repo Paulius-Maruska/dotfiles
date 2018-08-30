@@ -10,6 +10,7 @@ fi
 if [ -d /usr/local/sbin ]; then
     export PATH=/usr/local/sbin:$PATH
 fi
+export LOGGING_ENABLED=0
 export SHELL=$(which zsh)
 export DOTFILES=$HOME/.dotfiles
 export DOTFILESSHELL=bash

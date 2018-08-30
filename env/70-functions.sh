@@ -49,6 +49,31 @@ __pr() {
 complete -F __pr pr
 
 
+update() {
+    if [ "${#UPDATE_COMMANDS[@]}" -le 1 ]; then
+        echo "No update commands setup"
+        return 1
+    fi
+    local EXECUTE_COMMANDS=1
+    if [ "$1" = "-n" -o "$1" = "--dry-run" ]; then
+        EXECUTE_COMMANDS=0
+    fi
+
+    if [ "$EXECUTE_COMMANDS" = "1" ]; then
+        echo "Running update..."
+    else
+        echo "# Update commands:"
+    fi
+    for cmd in "${UPDATE_COMMANDS[@]}"; do
+        if [ "$EXECUTE_COMMANDS" = "1" ]; then
+            eval "$cmd"
+        else
+            echo "$cmd"
+        fi
+    done
+}
+
+
 __colors8() {
   local bold=
   local x

@@ -28,3 +28,7 @@ else
 fi
 
 export EDITOR=vim
+
+if [ "${#UPDATE_COMMANDS[@]}" = "0" ]; then
+    export UPDATE_COMMANDS=()
+fi

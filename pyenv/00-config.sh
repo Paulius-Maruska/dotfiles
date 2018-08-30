@@ -6,3 +6,10 @@ if [ -d "$PYENV_ROOT" ]; then
 else
   echo "pyenv is not installed, use 'pyenv-setup' to install it."
 fi
+
+# add pyenv update commands
+if [ -n "$(which pyenv)" ]; then
+    UPDATE_COMMANDS+=(
+        "pyenv update"
+    )
+fi

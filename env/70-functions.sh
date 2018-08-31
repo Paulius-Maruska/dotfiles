@@ -50,22 +50,43 @@ complete -F __pr pr
 
 
 update() {
+    local verbose=0
+    local execute=1
+    while [ -n "$1" ]; do
+        case "$1" in
+            -v|--verbose)
+                verbose=1
+                ;;
+            -n|--dry-run)
+                execute=0
+                ;;
+            *)
+                echo "Error: invalid option '$1'"
+                return 1
+                ;;
+        esac
+        shift
+    done
+
     if [ "${#UPDATE_COMMANDS[@]}" -le 1 ]; then
-        echo "No update commands setup"
-        return 1
-    fi
-    local EXECUTE_COMMANDS=1
-    if [ "$1" = "-n" -o "$1" = "--dry-run" ]; then
-        EXECUTE_COMMANDS=0
+        echo "Error: there are no update commands configured, did dotfiles load properly?"
+        return 2
     fi
 
-    if [ "$EXECUTE_COMMANDS" = "1" ]; then
-        echo "Running update..."
+    if [ "$execute" = "1" ]; then
+        if [ "$verbose" = "1" ]; then
+            echo "Running update..."
+        fi
     else
-        echo "# Update commands:"
+        if [ "$verbose" = "1" ]; then
+            echo "# Commands:"
+        fi
     fi
     for cmd in "${UPDATE_COMMANDS[@]}"; do
-        if [ "$EXECUTE_COMMANDS" = "1" ]; then
+        if [ "$execute" = "1" ]; then
+            if [ "$verbose" = "1" ]; then
+                echo "Running command: $cmd"
+            fi
             eval "$cmd"
         else
             echo "$cmd"

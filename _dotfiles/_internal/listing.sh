@@ -22,7 +22,7 @@ __list_files_to_source_internal(){
     filter+="-name '*.sh' "
     evalstr+="find -H $DOTFILES $filter $output;"
 
-    eval "$evalstr" | sort
+    eval "$evalstr" | sort -s -t : -k 1.1,1.3
 
     # Lastly load the private file (it will be ignored, if it doesn't exist)
     # Note: the same file is used for all shells.
@@ -31,7 +31,7 @@ __list_files_to_source_internal(){
 
 __list_files_to_link_internal(){
     # Configurations to be linked in $HOME
-    eval "find -H $DOTFILES -name '*.link' -printf '%p\n'" | sort
+    eval "find -H $DOTFILES -name '*.link' -printf '%p\n'" | sort -s -t : -k 1.1,1.3
 }
 
 list_files_to_source(){

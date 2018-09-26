@@ -28,12 +28,12 @@ pyenv-setup() {
     echo "pyenv already installed"
     return 0
   fi
-  git clone --depth 1 "git://github.com/yyuu/pyenv.git" "${PYENV_ROOT}"
-  git clone --depth 1 "git://github.com/yyuu/pyenv-doctor.git" "${PYENV_ROOT}/plugins/pyenv-doctor"
-  git clone --depth 1 "git://github.com/yyuu/pyenv-installer.git" "${PYENV_ROOT}/plugins/pyenv-installer"
-  git clone --depth 1 "git://github.com/yyuu/pyenv-update.git" "${PYENV_ROOT}/plugins/pyenv-update"
-  git clone --depth 1 "git://github.com/yyuu/pyenv-virtualenv.git" "${PYENV_ROOT}/plugins/pyenv-virtualenv"
-  git clone --depth 1 "git://github.com/yyuu/pyenv-which-ext.git" "${PYENV_ROOT}/plugins/pyenv-which-ext"
+  git clone --depth 1 "git://github.com/pyenv/pyenv.git" "${PYENV_ROOT}"
+  git clone --depth 1 "git://github.com/pyenv/pyenv-doctor.git" "${PYENV_ROOT}/plugins/pyenv-doctor"
+  git clone --depth 1 "git://github.com/pyenv/pyenv-installer.git" "${PYENV_ROOT}/plugins/pyenv-installer"
+  git clone --depth 1 "git://github.com/pyenv/pyenv-update.git" "${PYENV_ROOT}/plugins/pyenv-update"
+  git clone --depth 1 "git://github.com/pyenv/pyenv-virtualenv.git" "${PYENV_ROOT}/plugins/pyenv-virtualenv"
+  git clone --depth 1 "git://github.com/pyenv/pyenv-which-ext.git" "${PYENV_ROOT}/plugins/pyenv-which-ext"
 
   echo "pyenv installed successfully, please restart your shell"
 }

@@ -15,12 +15,6 @@ if [ -d "$HOME/bin" ]; then
     export PATH="$HOME/bin:$(printf '%s\n' "$PATH"|sed -e "s@$HOME/bin:@@g;s/::/:/g")"
 fi
 
-if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
-    # Gnome terminal reports itself as "xterm" although it supports
-    # all 256 colors and more.
-    export TERM="xterm-256color"
-fi
-
 if [ -t 1 -a "$(tput colors)" -ge 8 ]; then
     export COLORSUPPORT=1
 else

@@ -1,28 +1,28 @@
+__transform_input(){
+    while read line; do
+        if [[ -z "$line" ]]; then
+            return 0
+        fi
+        echo "$(basename "$line"):$line"
+    done
+}
 __list_files_to_source_internal(){
-    local filter=
-    local output="-printf '%f:%p\n'"
-    local evalstr=""
-
     # Files from env first (these are supposed to setup env variables)
-    filter="-name '*.sh'"
-    evalstr+="find -H $DOTFILES/env $filter $output;"
+    find "$DOTFILES/env" -name "*.sh" -print | __transform_input | sort -s -t : -k 1.1,1.3
 
     # Files from $DOTFILESSHELL second
-    filter="-name '*.sh'"
-    evalstr+="find -H $DOTFILES/$DOTFILESSHELL $filter $output;"
+    find "$DOTFILES/$DOTFILESSHELL" -name "*.sh" -print | __transform_input | sort -s -t : -k 1.1,1.3
 
     # Everything else
-    filter="-mindepth 2 "
-    filter+="-not -path '*/.git/*' "
-    filter+="-not -path '*/_dotfiles/*' "
-    filter+="-not -path '*/setup/*' "
-    filter+="-not -path '*/env/*' "
-    filter+="-not -path '*/zsh/*' "
-    filter+="-not -path '*/bash/*' "
-    filter+="-name '*.sh' "
-    evalstr+="find -H $DOTFILES $filter $output;"
-
-    eval "$evalstr" | sort -s -t : -k 1.1,1.3
+    local dirstoskip=( ".git" "_dotfiles" "setup" "env" "zsh" "bash" )
+    local args=( )
+    for d in "${dirstoskip[@]}"; do
+        args=(
+            "${args[@]}"
+            ! -path "*/$d/*"
+        )
+    done
+    find -f "$DOTFILES" "${args[@]}" -mindepth 2 -name "*.sh" -print | __transform_input | sort -s -t : -k 1.1,1.3
 
     # Lastly load the private file (it will be ignored, if it doesn't exist)
     # Note: the same file is used for all shells.

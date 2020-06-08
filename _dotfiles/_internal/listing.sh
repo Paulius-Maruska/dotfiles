@@ -22,7 +22,7 @@ __list_files_to_source_internal(){
             ! -path "*/$d/*"
         )
     done
-    find -f "$DOTFILES" "${args[@]}" -mindepth 2 -name "*.sh" -print | __transform_input | sort -s -t : -k 1.1,1.3
+    find "$DOTFILES" "${args[@]}" -mindepth 2 -name "*.sh" -print | __transform_input | sort -s -t : -k 1.1,1.3
 
     # Lastly load the private file (it will be ignored, if it doesn't exist)
     # Note: the same file is used for all shells.
